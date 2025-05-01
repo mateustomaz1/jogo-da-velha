@@ -1,39 +1,79 @@
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
-
-# dependencies
+# Node.js
 node_modules/
+npm-debug.*
+yarn-debug.*
+yarn-error.*
 
 # Expo
 .expo/
 dist/
 web-build/
 expo-env.d.ts
+.expo-shared/
 
-# Native
-.kotlin/
-*.orig.*
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
+# TypeScript
+*.tsbuildinfo
+
+# Output & build artifacts
+build/
+android/app/build/
+ios/build/
+
+# Environment files
+.env
+.env.*.local
+.env.local
+
+# macOS
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
 
 # Metro
 .metro-health-check*
 
-# debug
-npm-debug.*
-yarn-debug.*
-yarn-error.*
+# Android/Java/Kotlin
+*.jks
+*.keystore
+*.orig.*
+.gradle/
+*.apk
+*.ap_
+*.dex
+*.class
 
-# macOS
-.DS_Store
+# iOS
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+xcuserdata/
+*.xcworkspace
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+*.mobileprovision
+*.p8
+*.p12
+*.key
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+
+# Misc
+*.log
 *.pem
+*.tmp
 
-# local env files
-.env*.local
+# Ignore example or test apps
+app-example/
+example/
+__tests__/
 
-# typescript
-*.tsbuildinfo
-
-app-example
+# Coverage
+coverage/
+*.lcov

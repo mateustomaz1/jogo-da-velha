@@ -35,14 +35,14 @@ export default function Index() {
     const winner = checkWinner(gameMatriz);
 
     if (winner) {
-      Alert.alert(`${winner} ganhou!`);
+      Alert.alert(`${winner === "X" ? "Jogador" : "Computador"} ganhou!`);
       winner === "X"
         ? setPlayerVictory((prev) => prev + 1)
         : setCpuVictory((prev) => prev + 1);
     } else if (!gameMatriz.includes(null)) {
       Alert.alert("Empate!");
     } else if (!isXNext) {
-      setTimeout(randomCpuMove, 1000);
+      setTimeout(randomCpuMove, 800);
     }
   }, [gameMatriz]);
 
@@ -79,21 +79,44 @@ export default function Index() {
   return (
     <View style={styles.main}>
       <View style={styles.containerScoreBoard}>
-        <Text style={styles.scoreBoardText}>👤 VC: {playerVictory}   |   🤖 CPU: {cpuVictory}</Text>
+        <Text style={styles.scoreBoardText}>
+          👤 Jogador: {playerVictory}   |   🤖 CPU: {cpuVictory}
+        </Text>
       </View>
+
       <View style={styles.containerBoard}>
         {[0, 3, 6].map((startIndex) => (
           <View key={startIndex} style={styles.row}>
-            <CustomButton text={gameMatriz[startIndex]} onPress={() => handlePress(startIndex)} />
-            <CustomButton text={gameMatriz[startIndex + 1]} onPress={() => handlePress(startIndex + 1)} />
-            <CustomButton text={gameMatriz[startIndex + 2]} onPress={() => handlePress(startIndex + 2)} />
+            {[0, 1, 2].map((offset) => (
+              <CustomButton
+                key={startIndex + offset}
+                text={gameMatriz[startIndex + offset]}
+                onPress={() => handlePress(startIndex + offset)}
+              />
+            ))}
           </View>
         ))}
       </View>
-        <Text style={styles.TurnText}>Vez do <Text style={{color: "#ffcc54"}}>{isXNext ? "Jogador" : "Computador"}</Text></Text>
+
+      <Text style={styles.turnText}>
+        Vez do{" "}
+        <Text
+          style={{
+            color: isXNext ? "#4dabf7" : "#f9c74f",
+            fontWeight: "bold",
+          }}
+        >
+          {isXNext ? "Jogador" : "Computador"}
+        </Text>
+      </Text>
+
       <View style={styles.containerResetButton}>
-        <TouchableOpacity style={styles.resetButton} onPress={restartGame} activeOpacity={0.8}>
-          <Text style={styles.resetButtonText}>Reiniciar Jogo</Text>
+        <TouchableOpacity
+          style={styles.resetButton}
+          onPress={restartGame}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.resetButtonText}>🔄 Reiniciar Jogo</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -103,69 +126,69 @@ export default function Index() {
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    backgroundColor: "#1a1a1a",
+    backgroundColor: "#121212",
     justifyContent: "center",
     alignItems: "center",
+    padding: 16,
   },
 
   containerScoreBoard: {
-    backgroundColor: "#2c2c2c",
-    borderRadius: 12,
+    backgroundColor: "#1e1e1e",
+    borderRadius: 16,
     paddingVertical: 12,
     paddingHorizontal: 24,
     marginBottom: 30,
-    borderWidth: 2,
-    borderColor: "#444",
+    borderWidth: 1,
+    borderColor: "#3a3a3a",
     alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 3,
+    elevation: 3,
   },
-  
+
   scoreBoardText: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#fff",
-    textAlign: "center",
-  },  
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#e0e0e0",
+  },
 
   containerBoard: {
-    backgroundColor: "#333",
-    borderRadius: 16,
-    padding: 20,
+    backgroundColor: "#222",
+    borderRadius: 20,
+    padding: 16,
     marginBottom: 30,
   },
 
   row: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 5,
+    justifyContent: "center",
+    marginVertical: 5,
   },
 
-  TurnText: {
-    fontSize: 15,
-    fontWeight: "bold",
-    color: "#fff",
-    textAlign: "center",
+  turnText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#aaa",
+    marginBottom: 8,
   },
 
   containerResetButton: {
     marginTop: 20,
-    alignItems: "center",
   },
-  
+
   resetButton: {
-    backgroundColor: "#ff6666",
+    backgroundColor: "#e63946",
     paddingVertical: 12,
     paddingHorizontal: 40,
     borderRadius: 12,
-    elevation: 3,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    elevation: 4,
   },
-  
+
   resetButtonText: {
     color: "#fff",
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
   },
 });
